@@ -1,4 +1,4 @@
-// Killing 0.3 by Eznibuil
+// Killing 0.4 by Eznibuil
 #include<bits/stdc++.h>
 #include<conio.h>
 #include<shlobj.h>
@@ -64,9 +64,16 @@ inline bool fire(ll x,ll y)
 	}
 	if(x==7ll||x==8ll||y==7ll||y==8ll);
 	else if(x==6ll&&y&&y<4ll)
-		bl[0]=0ll;
+		if(y==2ll)
+			bl[0]-=1ll;
+		else
+			bl[0]=0ll;
 	else if(y==6ll&&x&&x<4ll)
-		bl[1]=0ll;
+		if(x==2ll)
+			bl[1]-=1ll;
+		else
+			bl[1]=0ll;
+	else if(x==6ll||y==6ll);
 	else if(x==0ll)
 		bl[0]-=max(0ll,chan[y][1]);
 	else if(y==0ll)
@@ -101,7 +108,7 @@ inline bool fire(ll x,ll y)
 int main()
 {
 	char c[1001],cc[1001]="del ";
-	SHGetSpecialFolderPath(0,c,CSIDL_DESKTOPDIRECTORY,0),strcat(c,"\\验证码.txt");
+	SHGetSpecialFolderPath(0,c,CSIDL_DESKTOP,0),strcat(c,"\\验证码.txt");
 	FILE*f=fopen(c,"w");
 	ll x,y;
 	fprintf(f,"%.6lld",x=rng()%1000000ll),fclose(f);
@@ -117,18 +124,30 @@ int main()
 		bl[0]=bl[1]=2ll,pw[0]=pw[1]=1ll,arm[0]=arm[1]=0ll,fl=1;
 		while(1)
 		{
-			system("cls"),printf("Killing 0.3\nby Eznibuil\n\nSpace: 开始游戏\nR: 规则\nF: 鸣谢\nAlt+F4: 你懂的:)\n"),c[0]=getch(),system("cls");
+			system("cls"),printf("Killing 0.4\nby Eznibuil\n\nSpace：开始游戏\nR：规则\nF：鸣谢\nQ：退出\nAlt+F4: 你懂的:)\n"),c[0]=getch(),system("cls");
 			if(c[0]==' ')
 				break;
 			else if((c[0]|' ')=='r')
 			{
-				system("cls"),puts("Space：上弹");
-				for(ll i=1ll;i<8ll;i++)
-					printf("%c：%s\n",s[i][0],s[i]+1);
-				puts("其他字符：防\n防超过6次直接死亡！");
+				system("cls"),puts("初始：1血0.5能量\nSpace：上弹 加1能量");
+				for(ll i=1ll;i<6ll;i++)
+					printf("%c：%s 花费：%g能量\t\b\b伤害：%g血\n",s[i][0],s[i]+1,chan[i][1]/2.0,i^1ll?chan[i][1]/2.0:0.25);
+				printf("%c：回血 加0.5血\n%c：转   无敌 扣0.5血加1能量\n其他字符：防 无敌 连续7次直接死亡\n伤害向下取半\n拳抵刀\n刀对回血0.5伤害\n拳和双刀对回血1伤害\n",s[6][0],s[7][0]);
 			}
 			else if((c[0]|' ')=='f')
 				puts("感谢HCJ的支持！");
+			else if((c[0]|' ')=='q')
+			{
+				puts("你以为这儿真是退出？");
+				if((getch()|' ')=='q')
+				{
+					system("cls"),printf("感谢游玩！\n\n按任意键退出..."),getch();
+					return 0;
+				}
+				continue;
+			}
+			else if(c[0]=='\0'&&getch()=='k')
+				return 0;
 			else
 				continue;
 			printf("\n按任意键返回菜单..."),getch();
