@@ -1,4 +1,4 @@
-// Killing 0.4 by Eznibuil
+// Killing 0.5 by Eznibuil
 #include<bits/stdc++.h>
 #include<conio.h>
 #include<shlobj.h>
@@ -65,12 +65,12 @@ inline bool fire(ll x,ll y)
 	if(x==7ll||x==8ll||y==7ll||y==8ll);
 	else if(x==6ll&&y&&y<4ll)
 		if(y==2ll)
-			bl[0]-=1ll;
+			bl[0]-=2ll;
 		else
 			bl[0]=0ll;
 	else if(y==6ll&&x&&x<4ll)
 		if(x==2ll)
-			bl[1]-=1ll;
+			bl[1]-=2ll;
 		else
 			bl[1]=0ll;
 	else if(x==6ll||y==6ll);
@@ -110,7 +110,7 @@ int main()
 	char c[1001],cc[1001]="del ";
 	SHGetSpecialFolderPath(0,c,CSIDL_DESKTOP,0),strcat(c,"\\验证码.txt");
 	FILE*f=fopen(c,"w");
-	ll x,y;
+	ll x,y,t;
 	fprintf(f,"%.6lld",x=rng()%1000000ll),fclose(f);
 	printf("请输入验证码：");
 	scanf("%lld",&y),strcat(cc,c),system(cc);
@@ -124,7 +124,7 @@ int main()
 		bl[0]=bl[1]=2ll,pw[0]=pw[1]=1ll,arm[0]=arm[1]=0ll,fl=1;
 		while(1)
 		{
-			system("cls"),printf("Killing 0.4\nby Eznibuil\n\nSpace：开始游戏\nR：规则\nF：鸣谢\nQ：退出\nAlt+F4: 你懂的:)\n"),c[0]=getch(),system("cls");
+			system("cls"),printf("Killing 0.5\nby Eznibuil\n\nSpace：开始游戏\nR：规则\nF：鸣谢\nQ：退出\nAlt+F4: 你懂的:)\n"),c[0]=getch(),system("cls");
 			if(c[0]==' ')
 				break;
 			else if((c[0]|' ')=='r')
@@ -154,7 +154,13 @@ int main()
 		}
 		while(1)
 		{
-			c[0]=getch(),system("cls"),x=tran(c[0]),y=gen(x);
+			t=clock(),c[0]=getch();
+			if((clock()-t)/CLOCKS_PER_SEC>10.0)
+			{
+				puts("你因超时而亡！");
+				break;
+			}
+			system("cls"),x=tran(c[0]),y=gen(x);
 			if(fire(x,y))
 				break;
 		}
