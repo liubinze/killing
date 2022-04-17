@@ -1,4 +1,4 @@
-// Killing 0.5 by Eznibuil
+// Killing 0.6rc1 by Eznibuil
 #include<bits/stdc++.h>
 #include<conio.h>
 #include<shlobj.h>
@@ -7,14 +7,14 @@ using namespace std;
 typedef long long ll;
 bool fl;
 char s[1001][1001]={
-" 上弹",
-"a拳  ",
-"s刀  ",
-"w双刀",
-"d枪  ",
-"e双枪",
-"q回血",
-"c转  "};
+" 上弹\0S\0\0S",
+"a拳  \0o\0\0o",
+"s刀  \0/\0\0\\",
+"w双刀\0//\0\\\\",
+"d枪  \0>\0\0<",
+"e双枪\0>>\0<<",
+"q回血\0^\0\0^",
+"c转  \0*\0\0*"};
 ll bl[2]={2ll,2ll},pw[2]={1ll,1ll},arm[2],chan[1001][1001]={
 {0ll,-2ll},
 {0ll,0ll},
@@ -24,16 +24,16 @@ ll bl[2]={2ll,2ll},pw[2]={1ll,1ll},arm[2],chan[1001][1001]={
 {0ll,4ll},
 {-1ll,0ll},
 {1ll,-2ll}};
-mt19937 rng(time(0));
+mt19937 rng(clock());
 inline ll tran(char c)
 {
 	for(ll i=0ll;i<8ll;i++)
 		if((c|' ')==s[i][0])
 		{
-			printf("%s || ",s[i]+1),bl[0]=min(2ll,bl[0]-chan[i][0]),pw[0]-=chan[i][1],arm[0]=0ll;
+			bl[0]=min(2ll,bl[0]-chan[i][0]),pw[0]-=chan[i][1],arm[0]=0ll;
 			return i;
 		}
-	printf("防   || "),arm[0]++;
+	arm[0]++;
 	return 8ll;
 }
 inline ll gen(ll x)
@@ -41,17 +41,45 @@ inline ll gen(ll x)
 	ll y;
 	if(pw[1]<10ll&&fl)
 		if(x<2ll||x>5ll)
-			y=0ll,puts("上弹"),pw[1]++,arm[1]=0ll;
+			y=0ll,pw[1]++,arm[1]=0ll;
 		else if(arm[1]<6ll)
-			y=8ll,puts("防"),arm[1]++;
+			y=8ll,arm[1]++;
 		else
-			y=4ll,puts("枪"),pw[1]-=2ll,arm[1]=0ll;
+			y=4ll,pw[1]-=2ll,arm[1]=0ll;
 	else
-		fl=0,y=rng()%(bl[1]<2ll?7ll:8ll),printf("%s\n",s[y]+1),bl[1]=min(2ll,bl[1]-chan[y][0]),pw[1]-=chan[y][1],arm[1]=0ll;
+		fl=0,y=rng()%(bl[1]<2ll?7ll:8ll),bl[1]=min(2ll,bl[1]-chan[y][0]),pw[1]-=chan[y][1],arm[1]=0ll;
 	return y;
 }
-inline bool fire(ll x,ll y)
+inline void fire(ll x,ll y)
 {
+	ll a=0ll,b=11ll-strlen(s[y]+9);
+	while(a<b)
+	{
+		system("cls"),printf(" O             O\nIHV");
+		for(ll i=0ll;i<a;i++)
+			putchar(' ');
+		if(a+strlen(s[x]+6)<=b||(!x||x>5ll)&&a+strlen(s[x]+6)>b)
+			printf(s[x]+6);
+		for(ll i=a+strlen(s[x]+6);i<b;i++)
+			putchar(' ');
+		if(a+strlen(s[x]+6)<=b||(!y||y>5ll)&&a+strlen(s[x]+6)>b)
+			printf(s[y]+9);
+		for(ll i=b+strlen(s[y]+9);i<11ll;i++)
+			putchar(' ');
+		puts("VHI\n/ \\           / \\");
+		if(x&&x<6ll)
+			a++;
+		if(y&&y<6ll)
+			b--;
+		if((!x||x>5ll)&&(!y||y>5ll))
+			break;
+		Sleep(100);
+	}
+	return;
+}
+inline bool kill(ll x,ll y)
+{
+	fire(x,y);
 	if(pw[0]<0ll||arm[0]>6ll)
 	{
 		puts("你炸了！");
@@ -124,7 +152,7 @@ int main()
 		bl[0]=bl[1]=2ll,pw[0]=pw[1]=1ll,arm[0]=arm[1]=0ll,fl=1;
 		while(1)
 		{
-			system("cls"),printf("Killing 0.5\nby Eznibuil\n\nSpace：开始游戏\nR：规则\nF：鸣谢\nQ：退出\nAlt+F4: 你懂的:)\n"),c[0]=getch(),system("cls");
+			system("cls"),printf("Killing 0.6rc1\nby Eznibuil\n\nSpace：开始游戏\nR：规则\nF：鸣谢\nQ：退出\nAlt+F4: 你懂的:)\n"),c[0]=getch(),system("cls");
 			if(c[0]==' ')
 				break;
 			else if((c[0]|' ')=='r')
@@ -155,13 +183,13 @@ int main()
 		while(1)
 		{
 			t=clock(),c[0]=getch();
-			if((clock()-t)/CLOCKS_PER_SEC>10.0)
+			if((clock()-t)/CLOCKS_PER_SEC>5.0)
 			{
 				puts("你因超时而亡！");
 				break;
 			}
 			system("cls"),x=tran(c[0]),y=gen(x);
-			if(fire(x,y))
+			if(kill(x,y))
 				break;
 		}
 		printf("\n按任意键返回菜单..."),getch();
