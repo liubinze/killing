@@ -1,4 +1,4 @@
-// Killing 0.6rc1 by Eznibuil
+// Killing 0.6rc2 by Eznibuil
 #include<bits/stdc++.h>
 #include<conio.h>
 #include<shlobj.h>
@@ -14,7 +14,8 @@ char s[1001][1001]={
 "d枪  \0>\0\0<",
 "e双枪\0>>\0<<",
 "q回血\0^\0\0^",
-"c转  \0*\0\0*"};
+"c转  \0*\0\0*",
+"\0防  \0X\0\0X"};
 ll bl[2]={2ll,2ll},pw[2]={1ll,1ll},arm[2],chan[1001][1001]={
 {0ll,-2ll},
 {0ll,0ll},
@@ -53,7 +54,7 @@ inline ll gen(ll x)
 inline void fire(ll x,ll y)
 {
 	ll a=0ll,b=11ll-strlen(s[y]+9);
-	while(a<b)
+	while(a+strlen(s[x]+6)<=b)
 	{
 		system("cls"),printf(" O             O\nIHV");
 		for(ll i=0ll;i<a;i++)
@@ -66,6 +67,8 @@ inline void fire(ll x,ll y)
 			printf(s[y]+9);
 		for(ll i=b+strlen(s[y]+9);i<11ll;i++)
 			putchar(' ');
+		if(a+strlen(s[x]+6)>b)
+			printf("\b  ");
 		puts("VHI\n/ \\           / \\");
 		if(x&&x<6ll)
 			a++;
@@ -79,7 +82,6 @@ inline void fire(ll x,ll y)
 }
 inline bool kill(ll x,ll y)
 {
-	fire(x,y);
 	if(pw[0]<0ll||arm[0]>6ll)
 	{
 		puts("你炸了！");
@@ -90,6 +92,7 @@ inline bool kill(ll x,ll y)
 		puts("你赢了！");
 		return 1;
 	}
+	fire(x,y);
 	if(x==7ll||x==8ll||y==7ll||y==8ll);
 	else if(x==6ll&&y&&y<4ll)
 		if(y==2ll)
@@ -152,7 +155,7 @@ int main()
 		bl[0]=bl[1]=2ll,pw[0]=pw[1]=1ll,arm[0]=arm[1]=0ll,fl=1;
 		while(1)
 		{
-			system("cls"),printf("Killing 0.6rc1\nby Eznibuil\n\nSpace：开始游戏\nR：规则\nF：鸣谢\nQ：退出\nAlt+F4: 你懂的:)\n"),c[0]=getch(),system("cls");
+			system("cls"),printf("Killing 0.6rc2\nby Eznibuil\n\nSpace：开始游戏\nR：规则\nF：鸣谢\nQ：退出\nAlt+F4: 你懂的:)\n"),c[0]=getch(),system("cls");
 			if(c[0]==' ')
 				break;
 			else if((c[0]|' ')=='r')
