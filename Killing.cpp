@@ -1,4 +1,4 @@
-// Killing 0.6rc2 by Eznibuil
+// Killing 0.6 by Eznibuil
 #include<bits/stdc++.h>
 #include<conio.h>
 #include<shlobj.h>
@@ -155,7 +155,7 @@ int main()
 		bl[0]=bl[1]=2ll,pw[0]=pw[1]=1ll,arm[0]=arm[1]=0ll,fl=1;
 		while(1)
 		{
-			system("cls"),printf("Killing 0.6rc2\nby Eznibuil\n\nSpace：开始游戏\nR：规则\nF：鸣谢\nQ：退出\nAlt+F4: 你懂的:)\n"),c[0]=getch(),system("cls");
+			system("cls"),printf("Killing 0.6\nby Eznibuil\n\nSpace：开始游戏\nR：规则\nF：鸣谢\nQ：退出\nAlt+F4: 你懂的:)\n"),c[0]=getch(),system("cls");
 			if(c[0]==' ')
 				break;
 			else if((c[0]|' ')=='r')
